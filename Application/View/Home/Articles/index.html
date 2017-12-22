@@ -1,0 +1,104 @@
+
+{include file = "../Common/header.html"}
+<link href="./Public/css/index.css" rel="stylesheet">
+
+<div id="main" class="add">
+
+	<div class="show-module-wrap clearfix"></div>
+	    
+ 	<div class="main-content clearfix">
+   		
+     	<div class="main-content-box fl">
+          
+			<div class="article-list">
+				<ul class="list">
+					{foreach $articleList as $key=>$article}
+					<li class="li-text clearfix {($key eq 0)?'':'new'}">
+						<div class="news-img-box fl">
+							<a href="./index.php?p=home&c=Articles&a=detail&id={$article.id}&category_id={$category_id}" target="_blank">
+								<img class="news-list-img" src="./Public/upload/{$article.img}" width="215" height="144" alt="如何建立个人博客？">
+							</a>
+							{if $key eq 0}
+							<p class="hot">
+								热<span class="triangle"></span>
+							</p>
+							{elseif $key eq 1}
+							<p class="hot">
+								新<span class="triangle"></span>
+							</p>
+							{/if}
+						</div>
+						<div class="news-content fr">
+							<h3 class="title-h3">
+								<a href="./index.php?p=home&c=Articles&a=detail&category_id={$category_id}&id={$article.id}" target="_blank" >
+									{$article.title}
+								</a>
+							</h3>
+							<div class="author-info clearfix">
+								<p class="author fl">
+									<a href="/about/">
+										<img src="./Public/home/img/author.png" width="33" height="33" alt="你大爷">
+										<span>{$article.author}</span>
+									</a>
+								</p>
+								<span class="date-time fl">
+									发布时间：
+										<em>
+											{$article.created_time|date_format:'Y-m-d H:i'}
+										</em>
+								</span>
+								<span class="classify fl">
+									分类：<a href="#/learn/">{$article.cateName}</a>
+								</span>
+							</div>
+							<p class="news-info">
+								{$article.desc}
+							</p>
+						</div>
+					</li>
+					{/foreach}
+
+				</ul>
+			</div>
+           	
+           	
+            <div class="page-wrap-box">
+				<div class="sfxfoot">{$str}</div>
+			</div>
+    	</div>
+   	</div>
+      
+	<footer class="footer-wrap">
+	<p>
+		<span>Design by：传值博客</span>
+		<span>备案号：<strong>沪ICP备XXXXXXXX号-2</strong></span>
+	</p>
+</footer>
+</div>
+	
+<div class="fixed-side-menu">
+	<ul class="list">
+		<li id="returnTop">
+			<a class="ico-bg return-top" href="javascript:;">
+			</a>
+		</li>
+		<li>
+			<a class="ico-bg qq" href="http://wpa.qq.com/msgrd?v=3&amp;uin=88888888888&amp;site=qq&amp;menu=yes" target="_blank">
+			</a>
+		</li>
+		<li id="wechatBoxWrap" class="wechat-box-wrap">
+			<a class="ico-bg wechat" href="javascript:;"></a>
+			<div class="wechat-img">
+				<img src="./Public/home/img/weixin.png" width="150" height="135" alt="你大爷博客官方微信公众号">
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+      
+	<script type="text/javascript" src="./Public/home/js/common.js"></script>
+	<script type="text/javascript" src="./Public/home/js/index.js"></script>
+
+</body>
+</html>

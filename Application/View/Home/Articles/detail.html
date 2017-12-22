@@ -1,0 +1,168 @@
+{include file = "../Common/header.html"}
+<link href="./Public/home/css/detail.css" rel="stylesheet">
+<script>
+
+    jQuery(document).ready(function ($) {
+        $('.check_login').click(function () {
+
+            var userinfo  = document.getElementById('user_info').value;
+            if(userinfo === "1"){
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+			}
+        })
+        $('.theme-poptit .close').click(function () {
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+        })
+    })
+
+</script>
+<div id="main" class="add">
+
+	<div class="show-module-wrap clearfix"></div>
+	    
+ 	<div class="main-content clearfix">
+   		
+     	<div class="main-content-box fl">
+          
+			<div class="article-list">
+				<div class="content-text-box">
+					<!-- content-header -->
+		 			<h1 class="title-h1">
+		 				{$articleData.0.title}
+		 			</h1>
+		 			<div class="detail-info-box">
+			            <ul class="clearfix">
+			               	<li>
+			               		编辑时间：<span class="date-time">{$articleData.0.created_time|date_format:'Y-m-d H:i'}</span>
+			               	</li>    
+			               	<li id="Browse">
+			               		浏览量：<span id="countnum">{$articleData.0.pv}</span>
+			               	</li>
+			               	<li>
+			               		作者：<span class="author">{$articleData.0.author}</span>
+			               	</li>
+			            </ul>
+				     </div>
+					<!-- /content-header -->
+				
+					<!--内容-->
+				    <div class="content">
+						{$articleData.0.content}
+				    </div>
+					<!--/内容-->
+			    	
+			    	<!---上一页下一页-->
+				    <div class="page-wrap-box">
+				    	<div class="page-text">
+				    		上一篇：<a href="learn198.html">{$shang.title}</a> <br>
+				    		下一篇：<a href="/learn235.html">{$xia.title}</a>
+				    	</div>
+				    </div>
+			    	<!---/上一页下一页-->
+
+			    	<!--评论--> 
+					<div id="comment">
+						{if !empty($commentsList)}
+						{foreach $commentsList as $comment}
+						<div class="comment" style="margin-left: {60*$comment.level}px">
+							<div class="c_fl">
+								<img src="./Public/Upload/{$comment.img}" width="55" height="55" />
+							</div>
+							<div class="c_fr">
+								<a href="##" >{$comment.uname}</a><span class="time">{$comment.created_time|date_format:'m月d日 H:i'}</span>
+								<a onclick="document.getElementById('comment_pid').value={$comment.id}" class="check_login reply" href="#form">回复</a>
+								<input type="hidden" value="{$user_info}" id="user_info">
+								<p>
+									{$comment.content}
+								</p>
+
+							</div>
+						</div>
+						{/foreach}
+						{/if}
+
+						<!--/评论-->
+
+
+					</div>
+
+
+	 			</div>
+			</div>
+   
+    	</div>
+   	</div>
+	<form action="./index.php?p=home&c=Comments&a=add" method="post" id="form">
+		<div class="comment">
+
+			<input type="hidden" name="pid" value="0" id="comment_pid">
+			<input type="hidden" name="aid" value="{$articleData.0.id}">
+			<textarea name="content" id="text" cols="30" rows="10" style="width: 100%;height: 100px">
+
+			</textarea><br/>
+			<input type="submit" name="" value="提交评论" style="margin-left: 95%">
+		</div>
+	</form>
+
+	<footer class="footer-wrap">
+		<p>
+			<span>Design by：传值博客</span>
+			<span>备案号：<strong>沪ICP备XXXXXXXX号-2</strong></span>
+		</p>
+	</footer>
+</div>
+	
+<div class="fixed-side-menu">
+	<ul class="list">
+		<li id="returnTop">
+			<a class="ico-bg return-top" href="javascript:;">
+			</a>
+		</li>
+		<li>
+			<a class="ico-bg qq" href="http://wpa.qq.com/msgrd?v=3&amp;uin=88888888888&amp;site=qq&amp;menu=yes" target="_blank">
+			</a>
+		</li>
+		<li id="wechatBoxWrap" class="wechat-box-wrap">
+			<a class="ico-bg wechat" href="javascript:;"></a>
+			<div class="wechat-img">
+				<img src="./Public/home/img/weixin.png" width="150" height="135" alt="你大爷博客官方微信公众号">
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+      
+	<script type="text/javascript" src="./Public/home/js/common.js"></script>
+	<script type="text/javascript" src="./Public/home/js/index.js"></script>
+
+
+<!-- 配置文件 -->
+<script type="text/javascript" src="./Public/common/UEditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="./Public/common/UEditor/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('text',{
+        minFrameWidth:400,
+        toolbars: [[
+            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|'
+        ]]
+    });
+
+    //        function getContent() {
+    //            //设置编辑器的内容
+    //            //ue.setContent('hello');
+    //            //获取html内容，返回: <p>hello</p>
+    ////            var html = ue.getContent();
+    ////            alert(html);
+    //            //获取纯文本内容，返回: hello
+    //            var txt = ue.getContentTxt();
+    //
+    //        }
+</script>
+</body>
+</html>
